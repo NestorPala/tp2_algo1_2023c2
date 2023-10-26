@@ -1,45 +1,10 @@
 const express = require('express')
 const app = express()
 const port = 4000
-const hash = require("./utils/hash")
+const moviesRoute = require("./routes/moviesRoute")
 
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-
-app.get('/movies', (req, res) => {
-    const movies = {
-        "1": { "name": "avatar", "poster_id": "abc123" },
-        "2": { "name": "cars3", "poster_id": "xyz456" }
-    }
-
-    res.send(movies)
-})
-
-app.get('/movies/:movie_id', (req, res) => {
-    const movies = require("./data/movies")
-    const id = req.params["movie_id"]
-
-    res.send(movies[id])
-})
-
-app.get("/movies/:movie_id/available-cinemas", (req, res) => {
-    const availableCinemas = require("./data/available-cinemas")
-    const id = req.params["movie_id"]
-
-    res.send(availableCinemas[id])
-})
-
-app.post("/movies/:movie_id/buy-ticket", (req, res) => {
-    const bodyStr = JSON.stringify(req.body)
-    const randomOperationId = hash(bodyStr)
-
-    res.send({
-        "ticket_id": randomOperationId
-    })
-})
+app.use("/movies", moviesRoute);
 
 app.get("/posters/:poster_id", (req, res) => {
     const posters = require("./data/posters")
