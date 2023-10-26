@@ -19,14 +19,14 @@ app.get('/movies', (req, res) => {
 })
 
 app.get('/movies/:movie_id', (req, res) => {
-    const movies = require("./movies")
+    const movies = require("./data/movies")
     const id = req.params["movie_id"]
 
     res.send(movies[id])
 })
 
 app.get("/movies/:movie_id/available-cinemas", (req, res) => {
-    const availableCinemas = require("./available-cinemas")
+    const availableCinemas = require("./data/available-cinemas")
     const id = req.params["movie_id"]
 
     res.send(availableCinemas[id])
@@ -42,7 +42,7 @@ app.post("/movies/:movie_id/buy-ticket", (req, res) => {
 })
 
 app.get("/posters/:poster_id", (req, res) => {
-    const posters = require("./posters")
+    const posters = require("./data/posters")
     const id = req.params["poster_id"]
 
     res.send({
@@ -51,7 +51,7 @@ app.get("/posters/:poster_id", (req, res) => {
 })
 
 app.get("/snacks", (req, res) => {
-    const snacks = require("./snacks")
+    const snacks = require("./data/snacks")
     res.send(snacks)
 })
 
