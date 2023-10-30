@@ -2,26 +2,31 @@ const express = require('express')
 const moviesRoute = express.Router();
 const hash = require("../utils/hash")
 
-moviesRoute.get('/', (req, res) => {
-    const movies = {
-        "1": { "name": "avatar", "poster_id": "abc123" },
-        "2": { "name": "cars3", "poster_id": "xyz456" }
-    }
+const movies = require("../data/movies")
+const availableCinemas = require("../data/available-cinemas")
 
-    res.send(movies)
+moviesRoute.get('/', (req, res) => {
+    const moviesBasicData = []
+
+    Object.keys(movies).forEach(
+        movieId =>
+        moviesBasicData.push({ 
+            "movie_id": movies[movieId]["id"],
+            "name": movies[movieId]["name"],
+            "poster_id": movies[movieId]["poster_id"]
+        })
+    )
+
+    res.send(moviesBasicData)
 })
 
 moviesRoute.get('/:movie_id', (req, res) => {
-    const movies = require("../data/movies")
     const id = req.params["movie_id"]
-
     res.send(movies[id])
 })
 
 moviesRoute.get("/:movie_id/available-cinemas", (req, res) => {
-    const availableCinemas = require("../data/available-cinemas")
     const id = req.params["movie_id"]
-
     res.send(availableCinemas[id])
 })
 
