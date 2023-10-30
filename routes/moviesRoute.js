@@ -1,9 +1,8 @@
 const express = require('express')
 const moviesRoute = express.Router();
-const hash = require("../utils/hash")
 
 const movies = require("../data/movies")
-const availableCinemas = require("../data/available-cinemas")
+const cinemaHasMovie = require("../data/cinemas").cinemaHasMovie
 
 moviesRoute.get('/', (req, res) => {
     const moviesBasicData = []
@@ -25,18 +24,9 @@ moviesRoute.get('/:movie_id', (req, res) => {
     res.send(movies[id])
 })
 
-moviesRoute.get("/:movie_id/available-cinemas", (req, res) => {
+moviesRoute.get("/:movie_id/cinemas", (req, res) => {
     const id = req.params["movie_id"]
-    res.send(availableCinemas[id])
-})
-
-moviesRoute.post("/:movie_id/buy-ticket", (req, res) => {
-    const bodyStr = JSON.stringify(req.body)
-    const randomOperationId = hash(bodyStr)
-
-    res.send({
-        "ticket_id": randomOperationId
-    })
+    res.send(cinemaHasMovie(id))
 })
 
 module.exports = moviesRoute
