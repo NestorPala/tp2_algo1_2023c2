@@ -1,3 +1,5 @@
+const cinemas_ids = ["1", "2", "3", "4", "5", "6", "7"]
+
 const cinemas = [
     {
         "cinema_id": "1",
@@ -78,4 +80,4 @@ function cinemaHasMovie(movie_id) {
         .map(cinema => cinema["cinema_id"])
 }
 
-module.exports = { cinemas, cinemaHasMovieData, cinemaHasMovie }
+module.exports = { cinemas, cinemas_ids, cinemaHasMovieData, cinemaHasMovie }

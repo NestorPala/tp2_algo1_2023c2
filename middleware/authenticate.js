@@ -1,6 +1,7 @@
 const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.DGI_v9bwNm_kSrC-CQSb3dBFzxOlrtBDHcEGXvCFqgU"
 
-const tokenError = res => res.status(401).json({ error: 'Invalid token' })
+const tokenError = require("../errors").tokenError
+
 
 function authenticate(req, res, next) {
     if (!req.headers.authorization) {
@@ -14,5 +15,6 @@ function authenticate(req, res, next) {
     }
     next()
 }
+
 
 module.exports = authenticate
