@@ -58,7 +58,6 @@ const cinemaHasMovieData = [
         "cinema_id": "5",
         "has_movies": ["2", "3", "9", "10", "11", "12", "13", "21", "22", "23", "24"]
     },
-
     {
         "cinema_id": "6",
         "has_movies": ["3", "5", "7", "8", "9", "11", "12", "19", "20", "22", "25", "26"]
@@ -74,7 +73,9 @@ function cinemaHasMovie(movie_id) {
         .filter(cinemaData => cinemaData["has_movies"].includes(movie_id))
         .map(cinemaData => cinemaData["cinema_id"])
 
-    return cinemas.filter(cinema => selectedCinemas.includes(cinema["cinema_id"]))
+    return cinemas
+        .filter(cinema => selectedCinemas.includes(cinema["cinema_id"]))
+        .map(cinema => cinema["cinema_id"])
 }
 
-module.exports = { cinemaHasMovie }
+module.exports = { cinemas, cinemaHasMovieData, cinemaHasMovie }
