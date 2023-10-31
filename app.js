@@ -2,11 +2,12 @@ const express = require('express')
 const app = express()
 const port = 4000
 const moviesRoute = require("./routes/moviesRoute")
+const authenticate = require("./middleware/authenticate")
 
 app.use(express.json());
 app.use("/movies", moviesRoute);
 
-app.get("/posters/:poster_id", (req, res) => {
+app.get("/posters/:poster_id", authenticate, (req, res) => {
     const posters = require("./data/posters")
     const id = req.params["poster_id"]
 
@@ -15,7 +16,7 @@ app.get("/posters/:poster_id", (req, res) => {
     })
 })
 
-app.get("/snacks", (req, res) => {
+app.get("/snacks", authenticate, (req, res) => {
     const snacks = require("./data/snacks")
     res.send(snacks)
 })

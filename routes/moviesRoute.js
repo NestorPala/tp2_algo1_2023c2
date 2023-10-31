@@ -4,7 +4,9 @@ const moviesRoute = express.Router();
 const movies = require("../data/movies")
 const cinemaHasMovie = require("../data/cinemas").cinemaHasMovie
 
-moviesRoute.get('/', (req, res) => {
+const authenticate = require("../middleware/authenticate")
+
+moviesRoute.get('/', authenticate, (req, res) => {
     const moviesBasicData = []
 
     Object.keys(movies).forEach(
@@ -19,12 +21,12 @@ moviesRoute.get('/', (req, res) => {
     res.send(moviesBasicData)
 })
 
-moviesRoute.get('/:movie_id', (req, res) => {
+moviesRoute.get('/:movie_id', authenticate, (req, res) => {
     const id = req.params["movie_id"]
     res.send(movies[id])
 })
 
-moviesRoute.get("/:movie_id/cinemas", (req, res) => {
+moviesRoute.get("/:movie_id/cinemas", authenticate, (req, res) => {
     const id = req.params["movie_id"]
     res.send(cinemaHasMovie(id))
 })
